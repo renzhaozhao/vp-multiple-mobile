@@ -94,7 +94,7 @@ module.exports = {
     }]
   },
   plugins: [
-    ...getHtmlPlugins(entry),
+    ...getHtmlPlugins(entry, 'dev'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       names: chunkNames
