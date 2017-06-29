@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Button, NavBar, Icon } from 'antd-mobile'
 
 import './style.less'
+import Tab from './tab'
 
 class App extends Component {
 
@@ -42,6 +43,8 @@ class App extends Component {
         {this.state.data.map((v, i) => {
           return <div key={i}>{v.name}</div>
         })}
+
+        <Tab />
       </div>
     )
   }
