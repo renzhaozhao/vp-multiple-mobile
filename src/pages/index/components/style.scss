@@ -1,0 +1,16 @@
+img {
+  width: 50px;
+  transition: .3s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+body {
+  background: lightblue;
+}
+
+
+
+
