@@ -3,6 +3,7 @@ const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const pxtorem = require('postcss-pxtorem')
 
 const entry = require('./webpack/entry')
 const {
@@ -33,7 +34,7 @@ module.exports = {
       exclude: /node_modules/,
       use: 'babel-loader'
     }, {
-      test: /\.scss$/,
+      test: /\.(less|css)$/,
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [{
@@ -45,18 +46,24 @@ module.exports = {
         {
           loader: 'postcss-loader',
           options: {
-            plugins: [autoprefixer({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9', // React doesn't support IE8 anyway
-              ]
-            })]
+            plugins: [
+              autoprefixer({
+                browsers: [
+                  '>1%',
+                  'last 4 versions',
+                  'Firefox ESR',
+                  'not ie < 9', // React doesn't support IE8 anyway
+                ]
+              }),
+              pxtorem({
+                rootValue: 100,
+                propWhiteList: []
+              })
+            ]
           }
         },
         {
-          loader: 'sass-loader'
+          loader: 'less-loader'
         }]
       })
     }, {
@@ -68,7 +75,19 @@ module.exports = {
           name: 'image/[hash:8].[ext]'
         }
       }]
+    }, {
+      test: /\.(svg)$/i,
+      include: [
+        require.resolve('antd-mobile').replace(/warn\.js$/, '')
+      ],
+      use: [{
+        loader: 'svg-sprite-loader'
+      }]
     }]
+  },
+  resolve: {
+    modules: ['node_modules', resolve(__dirname, '../node_modules')],
+    extensions: ['.web.js', '.js', '.json', '.css']
   },
   plugins: [
     ...getHtmlPlugins(entry),

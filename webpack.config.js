@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const { resolve } = require('path')
 const autoprefixer = require('autoprefixer')
+const pxtorem = require('postcss-pxtorem')
 
 const entry = require('./webpack/entry')
 const {
@@ -36,7 +37,7 @@ module.exports = {
       exclude: /node_modules/,
       use: 'babel-loader'
     }, {
-      test: /\.scss$/,
+      test: /\.(less|css)$/,
       use: [
         {
           loader: 'style-loader'
@@ -50,18 +51,27 @@ module.exports = {
         {
           loader: 'postcss-loader',
           options: {
-            plugins: [autoprefixer({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9', // React doesn't support IE8 anyway
-              ]
-            })]
+            plugins: [
+              autoprefixer({
+                browsers: [
+                  '>1%',
+                  'last 4 versions',
+                  'Firefox ESR',
+                  'not ie < 9', // React doesn't support IE8 anyway
+                ]
+              }),
+              pxtorem({
+                rootValue: 100,
+                propWhiteList: []
+              })
+            ]
           }
         },
         {
-          loader: 'sass-loader'
+          loader: 'less-loader',
+          options: {
+            modifyVars: { "@primary-color": "#1DA57A" },
+          }
         }
       ]
     }, {
@@ -73,6 +83,14 @@ module.exports = {
           name: 'image/[hash:8].[ext]'
         }
       }]
+    }, {
+      test: /\.(svg)$/i,
+      include: [
+        require.resolve('antd-mobile').replace(/warn\.js$/, '')
+      ],
+      use: [{
+        loader: 'svg-sprite-loader'
+      }]
     }]
   },
   plugins: [
@@ -82,6 +100,10 @@ module.exports = {
       names: chunkNames
     })
   ],
+  resolve: {
+    modules: ['node_modules', resolve(__dirname, '../node_modules')],
+    extensions: ['.web.js', '.js', '.json', '.css']
+  },
   devtool: 'cheap-module-source-map',
   devServer: {
     contentBase: resolve(__dirname, 'dist'),

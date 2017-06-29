@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Button, NavBar, Icon } from 'antd-mobile'
 
-import './style.scss'
+import './style.less'
 
 class App extends Component {
 
@@ -27,10 +28,17 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h2>index</h2>
+        <NavBar leftContent="back"
+          mode="light"
+          onLeftClick={() => console.log('onLeftClick')}
+          rightContent={[
+            <Icon key="0" type="search" style={{ marginRight: '0.32rem' }} />,
+            <Icon key="1" type="ellipsis" />,
+          ]}
+        >NavBar</NavBar>
         {this.state.number}
-        <button onClick={this.handleAdd}>add</button>
-        <img src={require('../../../assets/avatar.png')} alt="" />
+        <Button className="btn" type="primary" onClick={this.handleAdd}>add</Button>
+        <img className="my-img" src={require('../../../assets/avatar.png')} alt="" />
         {this.state.data.map((v, i) => {
           return <div key={i}>{v.name}</div>
         })}

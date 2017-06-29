@@ -1,5 +1,5 @@
 {
-  "name": "vp-multiple-seed",
+  "name": "vp-multiple-moblie",
   "version": "1.0.0",
   "description": "multiple h5 react",
   "scripts": {
@@ -8,6 +8,7 @@
     "build": "rimraf dist && webpack -p --color --config webpack.config.prod.js"
   },
   "dependencies": {
+    "antd-mobile": "^1.4.0",
     "axios": "^0.16.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -17,6 +18,7 @@
     "autoprefixer": "^7.1.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.0",
+    "babel-plugin-import": "^1.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.5.2",
@@ -25,11 +27,15 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.4",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
+    "postcss-pxtorem": "^4.0.1",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "svg-sprite-loader": "0.3.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
